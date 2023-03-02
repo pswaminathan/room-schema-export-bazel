@@ -1,0 +1,22 @@
+load("@io_bazel_rules_kotlin//kotlin:android.bzl", "kt_android_library")
+
+kt_android_library(
+    name = "lib",
+    srcs = [
+        "AppDatabase.kt",
+        "MainActivity.kt",
+        "Member.kt",
+        "MemberDao.kt",
+    ],
+    javacopts = [
+        "-Aroom.schemaLocation=/var/schemas",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        "//third_party/androidx/room-compiler",
+        "@maven//:androidx_room_room_common",
+        "@maven//:androidx_room_room_ktx",
+        "@maven//:androidx_room_room_migration",
+        "@maven//:androidx_room_room_runtime",
+    ],
+)
