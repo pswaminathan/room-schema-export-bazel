@@ -1,2 +1,8 @@
 build --java_runtime_version=remotejdk_11
 build --incompatible_strict_action_env
+build --experimental_android_databinding_v2
+build --android_databinding_use_v3_4_args
+build --android_databinding_use_androidx
+build --experimental_strict_java_deps=off  # cf. https://github.com/bazelbuild/bazel/issues/13647
+build --experimental_google_legacy_api
+query --experimental_google_legacy_api
