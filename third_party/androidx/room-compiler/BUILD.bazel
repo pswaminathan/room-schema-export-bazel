@@ -1,8 +1,23 @@
+load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_ksp_plugin")
+
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+kt_ksp_plugin(
+    name = "ksp",
+    processor_class = "androidx.room.RoomKspProcessor",
+    deps = [
+        "@maven//:androidx_room_room_common",
+        "@maven//:androidx_room_room_compiler",
+        "@maven//:androidx_room_room_migration",
+    ],
+)
+
 java_plugin(
     name = "room-compiler-plugin",
     generates_api = True,
     processor_class = "androidx.room.RoomProcessor",
-    visibility = ["//visibility:public"],
     deps = [
         "@maven//:androidx_room_room_common",
         "@maven//:androidx_room_room_compiler",
@@ -17,7 +32,6 @@ java_library(
     name = "room-compiler",
     exported_plugins = [":room-compiler-plugin"],
     neverlink = True,
-    visibility = ["//visibility:public"],
     javacopts = [
         "'-Aroom.schemaLocation=/var/schemas'",
     ],

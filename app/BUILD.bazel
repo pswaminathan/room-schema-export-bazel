@@ -16,7 +16,7 @@ kt_android_library(
     ],
     visibility = ["//visibility:private"],
     plugins = [
-        "//third_party/androidx/room-compiler:room-compiler-plugin",
+        "//third_party/androidx/room-compiler:ksp",
     ],
     deps = [
         "@maven//:androidx_room_room_common",
