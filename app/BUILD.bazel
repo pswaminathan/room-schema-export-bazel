@@ -1,19 +1,29 @@
 load("@io_bazel_rules_kotlin//kotlin:android.bzl", "kt_android_library")
+load("@grab_bazel_common//tools/databinding:databinding.bzl", "kt_db_android_library")
 
-kt_android_library(
+android_binary(
+    name = "app",
+    manifest = "AndroidManifest.xml",
+    deps = [":lib"],
+    # enable_data_binding = True,
+)
+
+kt_db_android_library(
     name = "lib",
+    custom_package = "app.lib",
+    manifest = "AndroidManifest.xml",
     srcs = [
         "AppDatabase.kt",
         "MainActivity.kt",
         "Member.kt",
         "MemberDao.kt",
     ],
-    javacopts = [
-        "-Aroom.schemaLocation=/var/schemas",
-    ],
     visibility = ["//visibility:private"],
+    plugins = [
+        "//third_party/androidx/room-compiler:ksp",
+    ],
+    resource_files = glob(["res/**/*.xml"]),
     deps = [
-        "//third_party/androidx/room-compiler",
         "@maven//:androidx_room_room_common",
         "@maven//:androidx_room_room_ktx",
         "@maven//:androidx_room_room_migration",
